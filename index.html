@@ -1,110 +1,133 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>Neko Dashboard 2 Demo</title>
- 
+
     <link href="./styles/kendo.common.min.css" rel="stylesheet" />
     <link href="./styles/kendo.default.min.css" rel="stylesheet" />
+    <link href="./styles/index.css" rel="stylesheet" />
     <script src="./scripts/jquery.min.js"></script>
     <script src="./scripts/jszip.min.js"></script>
     <script src="./scripts/kendo.all.min.js"></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
+    <div id="loader"></div>
     <div id="ordersGrid"></div>
 
     <script>
+      $(function () {
+        const $loading = $("#loader").hide(); // Hide it initially
+        $(document)
+          .ajaxStart(function () {
+            $loading.show();
+          })
+          .ajaxStop(function () {
+            $loading.hide();
+          });
 
-        const orderData = [
-            { OrderID: 1, OrderDate: "2017-11-06T12:00:00", Freight: 12.34, ShipCity: "Antwerp", ShipCountry: "Belgium" },
-            { OrderID: 2, OrderDate: "2019-03-02T12:00:00", Freight: 23.45, ShipCity: "Singapore", ShipCountry: "Singapore" },
-            { OrderID: 3, OrderDate: "2019-06-26T12:00:00", Freight: 34.56, ShipCity: "Shanghai", ShipCountry: "China" },
-            { OrderID: 4, OrderDate: "2017-09-20T12:00:00", Freight: 45.67, ShipCity: "Hamburg", ShipCountry: "Germany" },
-            { OrderID: 5, OrderDate: "2017-12-12T12:00:00", Freight: 56.78, ShipCity: "Mumbai", ShipCountry: "India" },
-            { OrderID: 6, OrderDate: "2018-02-08T12:00:00", Freight: 67.89, ShipCity: "Shanghai", ShipCountry: "China" },
-            { OrderID: 7, OrderDate: "2018-05-05T12:00:00", Freight: 78.90, ShipCity: "Tokyo", ShipCountry: "Japan" },
-            { OrderID: 8, OrderDate: "2019-08-03T12:00:00", Freight: 89.01, ShipCity: "Port Klang", ShipCountry: "Malaysia" },
-            { OrderID: 9, OrderDate: "2018-10-29T12:00:00", Freight: 90.12, ShipCity: "Rotterdam", ShipCountry: "Netherlands" },
-            { OrderID: 10, OrderDate: "2018-01-23T12:00:00", Freight: 10.32, ShipCity: "Vancouver", ShipCountry: "Canada" },
-            { OrderID: 11, OrderDate: "2018-04-17T12:00:00", Freight: 21.43, ShipCity: "Colón", ShipCountry: "Panama" },
-            { OrderID: 12, OrderDate: "2017-07-11T12:00:00", Freight: 32.54, ShipCity: "Manila", ShipCountry: "Philippines" },
-            { OrderID: 13, OrderDate: "2017-10-24T12:00:00", Freight: 43.65, ShipCity: "Singapore", ShipCountry: "Singapore" },
-            { OrderID: 14, OrderDate: "2018-03-11T12:00:00", Freight: 54.76, ShipCity: "Busan", ShipCountry: "South Korea" },
-            { OrderID: 15, OrderDate: "2018-06-17T12:00:00", Freight: 65.87, ShipCity: "Shenzhen", ShipCountry: "China" },
-            { OrderID: 16, OrderDate: "2018-10-13T12:00:00", Freight: 76.98, ShipCity: "Hong Kong", ShipCountry: "China" },
-            { OrderID: 17, OrderDate: "2019-04-19T12:00:00", Freight: 87.09, ShipCity: "Dubai", ShipCountry: "UAE" },
-            { OrderID: 18, OrderDate: "2019-07-25T12:00:00", Freight: 98.21, ShipCity: "Felixstowe", ShipCountry: "UK" },
-            { OrderID: 19, OrderDate: "2017-09-22T12:00:00", Freight: 13.24, ShipCity: "Los Angeles", ShipCountry: "USA" },
-            { OrderID: 20, OrderDate: "2018-12-09T12:00:00", Freight: 35.46, ShipCity: "New York", ShipCountry: "USA" },
-            { OrderID: 21, OrderDate: "2018-02-04T12:00:00", Freight: 57.68, ShipCity: "Guangzhou", ShipCountry: "China" },
-            { OrderID: 22, OrderDate: "2019-05-16T12:00:00", Freight: 9.87, ShipCity: "Long Beach", ShipCountry: "USA" },
-            { OrderID: 23, OrderDate: "2019-08-18T12:00:00", Freight: 24.13, ShipCity: "Singapore", ShipCountry: "Singapore" }
-        ];
-        var gridDataSource = new kendo.data.DataSource({
-            data: orderData,
-            schema: {
-                model: {
-                    fields: {
-                        OrderID: { type: "number" },
-                        Freight: { type: "number" },
-                        OrderDate: { type: "date" },
-                        ShipCountry: { type: "string" },
-                        ShipCity: { type: "string" }
-                    }
-                }
-            },
+        const bindDataToGrid = function (gridData) {
+          var gridDataSource = new kendo.data.DataSource({
+            data: gridData,
+            // schema: {
+            //     model: {
+            //         fields: {
+            //             scholarId: { type: "number" },
+            //             scholarName: { type: "string" },
+            //             customerId: { type: "number" },
+            //             amount: { type: "number" },
+            //             date: { type: "date" }
+            //         }
+            //     }
+            // },
             pageSize: 10,
             sort: {
-                field: "OrderDate",
-                dir: "desc"
-            }
-        });
+              field: "date",
+              dir: "desc",
+            },
+          });
 
-        $("#ordersGrid").kendoGrid({
+          $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
             // height: 400,
             pageable: true,
             sortable: true,
             filterable: true,
-            columns: [{
-                field:"OrderID",
-                title: "Order ID",
-                width: 160
-            }, {
-                field: "Freight",
+            columns: [
+              {
+                field: "scholarId",
+                title: "Scholar ID",
                 width: 160,
-            }, {
-                field: "OrderDate",
-                title: "Order Date",
+              },
+              {
+                field: "scholarName",
+                title: "Scholar Name",
+                width: 160,
+              },
+              {
+                field: "customerId",
+                title: "Customer Id",
+                width: 160,
+              },
+              {
+                field: "amount",
+                title: "Amount",
+              },
+              {
+                field: "date",
+                title: "Date",
                 width: 200,
-                format: "{0:dd MMMM yyyy}"
-            }, {
-                field: "ShipCountry",
-                title: "Ship Country"
-            }, {
-                field: "ShipCity",
-                title: "Ship City"
-            }],
+                format: "{0:dd MMMM yyyy}",
+              },
+            ],
             toolbar: ["search", "excel"],
             excel: {
-                fileName: "Kendo UI Grid Export.xlsx",
+              fileName: "Kendo UI Grid Export.xlsx",
             },
             search: {
-                fields: [
-                    { name: "OrderID", operator: "eq" },
-                    { name: "Freight", operator: "gte" },
-                    { name: "ShipName", operator: "contains" },
-                    { name: "ShipCity", operator: "contains" },
-                ]
+              fields: [
+                { name: "scholarId", operator: "eq" },
+                { name: "customerId", operator: "eq" },
+                { name: "amount", operator: "gte" },
+                { name: "scholarName", operator: "contains" },
+              ],
             },
             groupable: true,
+          });
+        };
+        
+        const prepareGridData = function (data) {
+          if (!Array.isArray(result.data)) {
+            return;
+          }
+          const scholars = result.data;
+          const gridData = [];
+          for (let i = 0; i < scholars.length; i++) {
+            const scholar = scholars[i];
+            const dailySLPs = scholar["_dailySLP"];
+            if (!Array.isArray(dailySLPs)) {
+              continue;
+            }
+            gridData.push(...dailySLPs);
+          }
+          return gridData;
+        };
+
+        const onGetScholarsSuccess = function (result) {
+          if (!result.ok) {
+            return;
+          }
+          const gridData = prepareGridData(result.data);
+          console.log(gridData);
+          bindDataToGrid(gridData);
+        };
+
+        $.ajax({
+          url: "http://34.124.189.18:8001/v1/scholars",
+          success: onGetScholarsSuccess,
         });
-
+      });
     </script>
-
-</body>
-
+  </body>
 </html>
