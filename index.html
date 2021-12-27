@@ -15,6 +15,9 @@
   <body>
     <div id="loader"></div>
     <div id="ordersGrid"></div>
+    <div id="error-message">
+      Sorry for the inconvenient. Please refresh the page or contact the admin.
+    </div>
 
     <script>
       $(function () {
@@ -30,17 +33,17 @@
         const bindDataToGrid = function (gridData) {
           var gridDataSource = new kendo.data.DataSource({
             data: gridData,
-            // schema: {
-            //     model: {
-            //         fields: {
-            //             scholarId: { type: "number" },
-            //             scholarName: { type: "string" },
-            //             customerId: { type: "number" },
-            //             amount: { type: "number" },
-            //             date: { type: "date" }
-            //         }
-            //     }
-            // },
+            schema: {
+              model: {
+                fields: {
+                  scholarId: { type: "number" },
+                  scholarName: { type: "string" },
+                  customerId: { type: "number" },
+                  amount: { type: "number" },
+                  date: { type: "date" },
+                },
+              },
+            },
             pageSize: 10,
             sort: {
               field: "date",
@@ -50,7 +53,6 @@
 
           $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
-            // height: 400,
             pageable: true,
             sortable: true,
             filterable: true,
@@ -63,7 +65,6 @@
               {
                 field: "scholarName",
                 title: "Scholar Name",
-                width: 160,
               },
               {
                 field: "customerId",
@@ -73,6 +74,7 @@
               {
                 field: "amount",
                 title: "Amount",
+                width: 200,
               },
               {
                 field: "date",
@@ -96,12 +98,12 @@
             groupable: true,
           });
         };
-        
+
         const prepareGridData = function (data) {
-          if (!Array.isArray(result.data)) {
+          if (!Array.isArray(data)) {
             return;
           }
-          const scholars = result.data;
+          const scholars = data;
           const gridData = [];
           for (let i = 0; i < scholars.length; i++) {
             const scholar = scholars[i];
@@ -111,6 +113,10 @@
             }
             gridData.push(...dailySLPs);
           }
+          gridData.forEach(function (item) {
+            item.scholarName = item["scholar"]["name"];
+            item.date = new Date(item.date);
+          });
           return gridData;
         };
 
@@ -123,9 +129,15 @@
           bindDataToGrid(gridData);
         };
 
+        const $errorMessage = $("#error-message").hide();
+        const onGetScholarsFail = function (error) {
+          $errorMessage.show();
+        };
+
         $.ajax({
           url: "http://34.124.189.18:8001/v1/scholars",
           success: onGetScholarsSuccess,
+          error: onGetScholarsFail,
         });
       });
     </script>
