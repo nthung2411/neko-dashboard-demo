@@ -121,7 +121,9 @@
         };
 
         const onGetScholarsSuccess = function (result) {
+          console.log(result);
           if (!result.ok) {
+            onGetScholarsFail(result);
             return;
           }
           const gridData = prepareGridData(result.data);
@@ -131,6 +133,7 @@
 
         const $errorMessage = $("#error-message").hide();
         const onGetScholarsFail = function (error) {
+          console.error(error);
           $errorMessage.show();
         };
 
