@@ -99,7 +99,6 @@ $(function () {
     };
 
     const onGetScholarsSuccess = function (result) {
-        console.log(result);
         if (!result.ok) {
             onGetScholarsFail(result);
             return;
@@ -114,10 +113,14 @@ $(function () {
         console.error(error);
         $errorMessage.show();
     };
-
-    $.ajax({
-        url: "http://34.124.189.18:8001/v1/scholars",
-        success: onGetScholarsSuccess,
-        error: onGetScholarsFail,
-    });
+    $.getJSON('./env.json', function (result) {
+        let url = result.useMockData
+            ? "./mock/scholars.json"
+            : "http://34.124.189.18:8001/v1/scholars";
+        $.ajax({
+            url,
+            success: onGetScholarsSuccess,
+            error: onGetScholarsFail,
+        });
+    });    
 });

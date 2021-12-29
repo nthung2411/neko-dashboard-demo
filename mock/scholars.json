@@ -1,0 +1,192 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "address": "JqanUPD5HOqIFm79",
+      "_dailySLP": [
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 906,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Carrier"
+          }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 160,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Carrier"
+          }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 702,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Carrier"
+          }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 453,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Carrier"
+          }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 254,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Carrier"
+          }
+        }
+      ]
+    },
+    {
+      "address": "1NL69LxX0tKhdvbo",
+      "_dailySLP": [
+        {
+          "scholarId": 2,
+          "customerId": 2,
+          "amount": 50,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Supporter"
+          }
+        },
+        {
+          "scholarId": 2,
+          "customerId": 2,
+          "amount": 211,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Supporter"
+          }
+        },
+        {
+          "scholarId": 2,
+          "customerId": 2,
+          "amount": 605,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Supporter"
+          }
+        },
+        {
+          "scholarId": 2,
+          "customerId": 2,
+          "amount": 99,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Supporter"
+          }
+        }
+      ]
+    },
+    {
+      "address": "TuHUCS8PDxGaVuwh",
+      "_dailySLP": [
+        {
+          "scholarId": 3,
+          "customerId": 3,
+          "amount": 160,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Tanker"
+          }
+        },
+        {
+          "scholarId": 3,
+          "customerId": 3,
+          "amount": 241,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Tanker"
+          }
+        },
+        {
+          "scholarId": 3,
+          "customerId": 3,
+          "amount": 727,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Tanker"
+          }
+        }
+      ]
+    },
+    {
+      "address": "l7FdXpdP5zCTSRE9",
+      "_dailySLP": [
+        {
+          "scholarId": 4,
+          "customerId": 4,
+          "amount": 938,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Feeder"
+          }
+        },
+        {
+          "scholarId": 4,
+          "customerId": 4,
+          "amount": 630,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Feeder"
+          }
+        },
+        {
+          "scholarId": 4,
+          "customerId": 4,
+          "amount": 318,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Feeder"
+          }
+        },
+        {
+          "scholarId": 4,
+          "customerId": 4,
+          "amount": 699,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "Feeder"
+          }
+        }
+      ]
+    },
+    {
+      "address": "MNtdFGAv4AzqmeD9",
+      "_dailySLP": [
+        {
+          "scholarId": 5,
+          "customerId": 5,
+          "amount": 891,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "AFKer"
+          }
+        },
+        {
+          "scholarId": 5,
+          "customerId": 5,
+          "amount": 472,
+          "date": 1640767179859,
+          "scholar": {
+            "name": "AFKer"
+          }
+        }
+      ]
+    }
+  ]
+}
