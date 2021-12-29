@@ -13,13 +13,22 @@
   </head>
 
   <body>
-    <div id="loader"></div>
-    <div id="ordersGrid"></div>
-    <div id="error-message">
-      Sorry for the inconvenient. Please refresh the page or contact the admin.
+    <div class="loader">
+      <span id="loader"></span>
+      <span id="error-message">
+        Sorry for the inconvenient. Please contact the
+        admin for further instruction.
+      </span>
     </div>
+    <div id="ordersGrid"></div>
 
     <script>
+      $(document).ready(function () {
+        $("#loader").kendoLoader({
+          themeColor: "secondary",
+          type: "infinite-spinner",
+        });
+      });
       $(function () {
         const $loading = $("#loader").hide(); // Hide it initially
         $(document)
