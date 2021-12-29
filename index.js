@@ -18,6 +18,25 @@ $(function () {
                 field: "date",
                 dir: "desc",
             },
+            // group on init
+            // group: {
+            //     field: "customerId", aggregates: [
+            //         { field: "scholarId", aggregate: "count" },
+            //         { field: "amount", aggregate: "sum" },
+            //         { field: "amount", aggregate: "average" },
+            //     ],
+            //     field: "scholarId", aggregates: [
+            //         { field: "customerId", aggregate: "count" },
+            //         { field: "amount", aggregate: "sum" },
+            //         { field: "amount", aggregate: "average" },
+            //     ]
+            // },
+            aggregate: [
+                { field: "scholarId", aggregate: "count" },
+                { field: "customerId", aggregate: "count" },
+                { field: "amount", aggregate: "average" },
+                { field: "amount", aggregate: "sum" },
+            ]
         });
 
         $("#ordersGrid").kendoGrid({
@@ -30,6 +49,7 @@ $(function () {
                     field: "scholarId",
                     title: "Scholar ID",
                     width: 160,
+                    aggregates: ["count"], groupHeaderColumnTemplate: "Scholars: #=count#"
                 },
                 {
                     field: "scholarName",
@@ -39,11 +59,13 @@ $(function () {
                     field: "customerId",
                     title: "Customer Id",
                     width: 160,
+                    aggregates: ["count"], groupHeaderColumnTemplate: "Customers: #=count#",
                 },
                 {
                     field: "amount",
                     title: "Amount",
                     width: 200,
+                    aggregates: ["sum"], groupHeaderColumnTemplate: "Total SLP Amount: #=sum#"
                 },
                 {
                     field: "date",
@@ -113,5 +135,5 @@ $(function () {
             success: onGetScholarsSuccess,
             error: onGetScholarsFail,
         });
-    });    
+    });
 });
