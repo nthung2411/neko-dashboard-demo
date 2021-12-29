@@ -1,13 +1,4 @@
 $(function () {
-    const $loading = $("#loader").hide(); // Hide it initially
-    $(document)
-        .ajaxStart(function () {
-            $loading.show();
-        })
-        .ajaxStop(function () {
-            $loading.hide();
-        });
-
     const bindDataToGrid = function (gridData) {
         var gridDataSource = new kendo.data.DataSource({
             data: gridData,

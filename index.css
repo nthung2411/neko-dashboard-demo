@@ -4,3 +4,9 @@
   align-items: center;
   height: 450px;
 }
+
+.content {
+  display: flex;
+}
+
+
