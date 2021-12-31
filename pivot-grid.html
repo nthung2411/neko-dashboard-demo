@@ -7,7 +7,7 @@
     <link href="./styles/kendo.common.min.css" rel="stylesheet" />
     <link href="./styles/kendo.default.mobile.min.css" rel="stylesheet" />
     <link href="./styles/kendo.default.min.css" rel="stylesheet" />
-    <link href="./index.css" rel="stylesheet" />
+    <link href="./pivot-grid.css" rel="stylesheet" />
     <script src="./js/jquery.min.js"></script>
     <script src="./js/jszip.min.js"></script>
     <script src="./js/kendo.all.min.js"></script>
@@ -39,109 +39,6 @@
       <span id="loader"></span>
     </div>
     <script src="./global.js"></script>
-    <script>
-      $(document).ready(function () {
-        const prepareGridData = function (data) {
-          if (!Array.isArray(data)) {
-            return;
-          }
-          const scholars = data;
-          const gridData = [];
-          for (let i = 0; i < scholars.length; i++) {
-            const scholar = scholars[i];
-            const dailySLPs = scholar["_dailySLP"];
-            if (!Array.isArray(dailySLPs)) {
-              continue;
-            }
-            gridData.push(...dailySLPs);
-          }
-          gridData.forEach(function (item) {
-            item.scholarName = item["scholar"]["name"];
-            const date = moment(item.date).format("DD MMM yyyy");
-            item.date = date;
-          });
-          return gridData;
-        };
-
-        const onGetScholarsSuccess = function (result) {
-          if (!result.ok) {
-            onGetScholarsFail(result);
-            return;
-          }
-          const pivotData = prepareGridData(result.data);
-
-          const pivotDataSource = new kendo.data.PivotDataSource({
-            columns: ["customerId", "date"],
-            rows: ["scholarName"],
-            measures: ["Sum"],
-            data: pivotData,
-            schema: {
-              cube: {
-                dimensions: {
-                  scholarName: { caption: "All Scholars" },
-                  customerId: { caption: "All Customer IDs" },
-                  date: { caption: "All days" },
-                },
-                measures: {
-                  Sum: {
-                    field: "amount",
-                    format: "{0:d}",
-                    aggregate: function (value, state, context) {
-                      return (state.accumulator || 0) + value;
-                    },
-                  },
-                },
-              },
-            },
-          });
-
-          const pivotgrid = $("#pivotgrid")
-            .kendoPivotGrid({
-              filterable: true,
-              sortable: true,
-              columnWidth: 200,
-              height: 720,
-              dataSource: pivotDataSource,
-            })
-            .data("kendoPivotGrid");
-
-          $("#configurator").kendoPivotConfigurator({
-            dataSource: pivotgrid.dataSource,
-            filterable: true,
-            sortable: true,
-            height: 720,
-          });
-        };
-
-        const onGetScholarsFail = function (data) {
-          console.error(error);
-        };
-
-        $.getJSON("./env.json", function (result) {
-          let url = result.useMockData
-            ? "./mock/scholars.json"
-            : "http://34.124.189.18:8001/v1/scholars";
-          $.ajax({
-            url,
-            success: onGetScholarsSuccess,
-            error: onGetScholarsFail,
-          });
-        });
-      });
-    </script>
-    <style>
-      #configurator {
-        width: 400px;
-        min-width: 400px;
-        display: inline-block;
-        vertical-align: top;
-      }
-
-      #pivotgrid {
-        width: 67%;
-        display: inline-block;
-        vertical-align: top;
-      }
-    </style>
+    <script src="./pivot-grid.js"></script>
   </body>
 </html>
