@@ -7,6 +7,7 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 906,
           "date": 1640767179859,
           "scholar": {
@@ -16,6 +17,7 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 160,
           "date": 1640767179859,
           "scholar": {
@@ -25,6 +27,7 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 702,
           "date": 1640767179859,
           "scholar": {
@@ -34,6 +37,7 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 453,
           "date": 1640767179859,
           "scholar": {
@@ -43,6 +47,7 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 254,
           "date": 1640767179859,
           "scholar": {
@@ -52,6 +57,7 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 702,
           "date": 1640945082487,
           "scholar": {
@@ -61,6 +67,7 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 453,
           "date": 1640945082487,
           "scholar": {
@@ -70,8 +77,19 @@
         {
           "scholarId": 1,
           "customerId": 1,
+          "customerName": "Robert Jr",
           "amount": 254,
           "date": 1640945082487,
+          "scholar": {
+            "name": "Carrier"
+          }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 5,
+          "customerName": "Aaron",
+          "amount": 891,
+          "date": 1640767179859,
           "scholar": {
             "name": "Carrier"
           }
@@ -84,6 +102,7 @@
         {
           "scholarId": 2,
           "customerId": 2,
+          "customerName": "Robert N",
           "amount": 50,
           "date": 1640767179859,
           "scholar": {
@@ -93,6 +112,7 @@
         {
           "scholarId": 2,
           "customerId": 2,
+          "customerName": "Robert N",
           "amount": 211,
           "date": 1640767179859,
           "scholar": {
@@ -102,6 +122,7 @@
         {
           "scholarId": 2,
           "customerId": 2,
+          "customerName": "Robert N",
           "amount": 605,
           "date": 1640767179859,
           "scholar": {
@@ -111,6 +132,7 @@
         {
           "scholarId": 2,
           "customerId": 2,
+          "customerName": "Robert N",
           "amount": 99,
           "date": 1640767179859,
           "scholar": {
@@ -120,6 +142,7 @@
         {
           "scholarId": 2,
           "customerId": 2,
+          "customerName": "Robert N",
           "amount": 50,
           "date": 1640945082487,
           "scholar": {
@@ -129,6 +152,7 @@
         {
           "scholarId": 2,
           "customerId": 2,
+          "customerName": "Robert N",
           "amount": 211,
           "date": 1640945082487,
           "scholar": {
@@ -143,6 +167,7 @@
         {
           "scholarId": 3,
           "customerId": 3,
+          "customerName": "Joana",
           "amount": 160,
           "date": 1640767179859,
           "scholar": {
@@ -152,6 +177,7 @@
         {
           "scholarId": 3,
           "customerId": 3,
+          "customerName": "Joana",
           "amount": 241,
           "date": 1640767179859,
           "scholar": {
@@ -161,8 +187,19 @@
         {
           "scholarId": 3,
           "customerId": 3,
+          "customerName": "Joana",
           "amount": 727,
           "date": 1640767179859,
+          "scholar": {
+            "name": "Tanker"
+          }
+        },
+        {
+          "scholarId": 3,
+          "customerId": 2,
+          "customerName": "Robert N",
+          "amount": 211,
+          "date": 1640945082487,
           "scholar": {
             "name": "Tanker"
           }
@@ -175,6 +212,7 @@
         {
           "scholarId": 4,
           "customerId": 4,
+          "customerName": "Alex",
           "amount": 938,
           "date": 1640767179859,
           "scholar": {
@@ -184,6 +222,7 @@
         {
           "scholarId": 4,
           "customerId": 4,
+          "customerName": "Alex",
           "amount": 630,
           "date": 1640767179859,
           "scholar": {
@@ -193,6 +232,7 @@
         {
           "scholarId": 4,
           "customerId": 4,
+          "customerName": "Alex",
           "amount": 318,
           "date": 1640767179859,
           "scholar": {
@@ -202,6 +242,7 @@
         {
           "scholarId": 4,
           "customerId": 4,
+          "customerName": "Alex",
           "amount": 699,
           "date": 1640767179859,
           "scholar": {
@@ -211,6 +252,7 @@
         {
           "scholarId": 4,
           "customerId": 4,
+          "customerName": "Alex",
           "amount": 318,
           "date": 1640945082487,
           "scholar": {
@@ -220,6 +262,7 @@
         {
           "scholarId": 4,
           "customerId": 4,
+          "customerName": "Alex",
           "amount": 699,
           "date": 1640945082487,
           "scholar": {
@@ -234,6 +277,7 @@
         {
           "scholarId": 5,
           "customerId": 5,
+          "customerName": "Aaron",
           "amount": 891,
           "date": 1640767179859,
           "scholar": {
@@ -243,6 +287,7 @@
         {
           "scholarId": 5,
           "customerId": 5,
+          "customerName": "Aaron",
           "amount": 472,
           "date": 1640767179859,
           "scholar": {
@@ -252,7 +297,18 @@
         {
           "scholarId": 5,
           "customerId": 5,
+          "customerName": "Aaron",
           "amount": 472,
+          "date": 1640945082487,
+          "scholar": {
+            "name": "AFKer"
+          }
+        },
+        {
+          "scholarId": 5,
+          "customerId": 4,
+          "customerName": "Alex",
+          "amount": 699,
           "date": 1640945082487,
           "scholar": {
             "name": "AFKer"

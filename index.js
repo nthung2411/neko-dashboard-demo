@@ -7,9 +7,9 @@ $(function () {
                     fields: {
                         scholarId: { type: "number" },
                         scholarName: { type: "string" },
-                        customerId: { type: "number" },
+                        customerName: { type: "string" },
                         amount: { type: "number" },
-                        date: { type: "date" },
+                        date: { type: "string" },
                     },
                 },
             },
@@ -33,7 +33,7 @@ $(function () {
             // },
             aggregate: [
                 { field: "scholarId", aggregate: "count" },
-                { field: "customerId", aggregate: "count" },
+                { field: "customerName", aggregate: "count" },
                 { field: "amount", aggregate: "average" },
                 { field: "amount", aggregate: "sum" },
             ]
@@ -56,8 +56,8 @@ $(function () {
                     title: "Scholar Name",
                 },
                 {
-                    field: "customerId",
-                    title: "Customer Id",
+                    field: "customerName",
+                    title: "Customer Name",
                     width: 160,
                     aggregates: ["count"], groupHeaderColumnTemplate: "Customers: #=count#",
                 },
@@ -71,7 +71,7 @@ $(function () {
                     field: "date",
                     title: "Date",
                     width: 200,
-                    format: "{0:dd MMMM yyyy}",
+                    // format: "{0:dd MMMM yyyy}",
                 },
             ],
             toolbar: ["search", "excel"],
@@ -106,7 +106,8 @@ $(function () {
         }
         gridData.forEach(function (item) {
             item.scholarName = item["scholar"]["name"];
-            item.date = new Date(item.date);
+            const date = moment(item.date).format("DD MMM yyyy");
+            item.date = date;
         });
         return gridData;
     };
