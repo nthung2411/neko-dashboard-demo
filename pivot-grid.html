@@ -21,9 +21,124 @@
 
     <h1>Pivot Grid</h1>
 
+    <div class="content">
+      <div id="configurator" class="hidden-on-narrow"></div>
+      <div id="pivotgrid" class="hidden-on-narrow"></div>
+
+      <div class="responsive-message"></div>
+    </div>
+
     <div class="loader">
       <span id="loader"></span>
     </div>
     <script src="./global.js"></script>
+    <script>
+      $(document).ready(function () {
+
+        const pivotDataSource = new kendo.data.PivotDataSource({
+          columns: ["ProductName"],
+          rows: ["Category", "Date"],
+          measures: ["Sum"],
+          data: [
+            {
+              ProductName: "Chai",
+              UnitPrice: 42,
+              Category: "Beverages",
+              Date: "31/12/2021",
+            },
+            {
+              ProductName: "Coke",
+              UnitPrice: 20,
+              Category: "Beverages",
+              Date: "31/12/2021",
+            },
+            {
+              ProductName: "Coke",
+              UnitPrice: 40,
+              Category: "Beverages",
+              Date: "30/12/2021",
+            },
+            {
+              ProductName: "Coke",
+              UnitPrice: 80,
+              Category: "Beverages",
+              Date: "29/12/2021",
+            },
+            {
+              ProductName: "French Fries",
+              UnitPrice: 100,
+              Category: "Food",
+              Date: "31/12/2021",
+            },
+            {
+              ProductName: "French Fries",
+              UnitPrice: 150,
+              Category: "Food",
+              Date: "30/12/2021",
+            },
+            {
+              ProductName: "French Fries",
+              UnitPrice: 50,
+              Category: "Food",
+              Date: "29/12/2021",
+            },
+          ],
+          schema: {
+            cube: {
+              dimensions: {
+                ProductName: { caption: "All Products" },
+                Category: { caption: "All Categories" },
+                Date: { caption: "All days"}
+              },
+              measures: {
+                Sum: {
+                  field: "UnitPrice",
+                  format: "{0:c}",
+                  aggregate: function (value, state, context) {
+                    return (state.accumulator || 0) + value;
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        pivotDataSource.fetch(function () {
+          /* The result can be observed in the DevTools(F12) console of the browser. */
+          console.log(pivotDataSource.data(), pivotDataSource.axes());
+        });
+
+        const pivotgrid = $("#pivotgrid")
+          .kendoPivotGrid({
+            filterable: true,
+            sortable: true,
+            columnWidth: 200,
+            height: 580,
+            dataSource: pivotDataSource,
+          })
+          .data("kendoPivotGrid");
+
+        $("#configurator").kendoPivotConfigurator({
+          dataSource: pivotgrid.dataSource,
+          filterable: true,
+          sortable: true,
+          height: 580,
+        });
+      });
+    </script>
+    <style>
+      #configurator {
+        width: 400px;
+        min-width: 400px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      #pivotgrid {
+        width: 67%;
+        display: inline-block;
+        vertical-align: top;
+      }
+    </style>
   </body>
 </html>
