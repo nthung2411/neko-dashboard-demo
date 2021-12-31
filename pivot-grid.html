@@ -95,11 +95,6 @@
             },
           });
 
-          pivotDataSource.fetch(function () {
-            /* The result can be observed in the DevTools(F12) console of the browser. */
-            console.log(pivotDataSource.data(), pivotDataSource.axes());
-          });
-
           const pivotgrid = $("#pivotgrid")
             .kendoPivotGrid({
               filterable: true,
