@@ -48,6 +48,33 @@
           "scholar": {
             "name": "Carrier"
           }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 702,
+          "date": 1640945082487,
+          "scholar": {
+            "name": "Carrier"
+          }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 453,
+          "date": 1640945082487,
+          "scholar": {
+            "name": "Carrier"
+          }
+        },
+        {
+          "scholarId": 1,
+          "customerId": 1,
+          "amount": 254,
+          "date": 1640945082487,
+          "scholar": {
+            "name": "Carrier"
+          }
         }
       ]
     },
@@ -86,6 +113,24 @@
           "customerId": 2,
           "amount": 99,
           "date": 1640767179859,
+          "scholar": {
+            "name": "Supporter"
+          }
+        },
+        {
+          "scholarId": 2,
+          "customerId": 2,
+          "amount": 50,
+          "date": 1640945082487,
+          "scholar": {
+            "name": "Supporter"
+          }
+        },
+        {
+          "scholarId": 2,
+          "customerId": 2,
+          "amount": 211,
+          "date": 1640945082487,
           "scholar": {
             "name": "Supporter"
           }
@@ -162,6 +207,24 @@
           "scholar": {
             "name": "Feeder"
           }
+        },
+        {
+          "scholarId": 4,
+          "customerId": 4,
+          "amount": 318,
+          "date": 1640945082487,
+          "scholar": {
+            "name": "Feeder"
+          }
+        },
+        {
+          "scholarId": 4,
+          "customerId": 4,
+          "amount": 699,
+          "date": 1640945082487,
+          "scholar": {
+            "name": "Feeder"
+          }
         }
       ]
     },
@@ -182,6 +245,15 @@
           "customerId": 5,
           "amount": 472,
           "date": 1640767179859,
+          "scholar": {
+            "name": "AFKer"
+          }
+        },
+        {
+          "scholarId": 5,
+          "customerId": 5,
+          "amount": 472,
+          "date": 1640945082487,
           "scholar": {
             "name": "AFKer"
           }
