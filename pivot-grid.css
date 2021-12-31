@@ -1,12 +1,13 @@
 #configurator {
-  width: 400px;
   min-width: 400px;
-  display: inline-block;
-  vertical-align: top;
+  vertical-align: top;  
 }
 
 #pivotgrid {
-  width: 67%;
-  display: inline-block;
+  flex: 1;
   vertical-align: top;
+}
+
+.content {
+  display: flex;
 }

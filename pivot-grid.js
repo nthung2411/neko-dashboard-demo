@@ -61,7 +61,7 @@ $(document).ready(function () {
                 filterable: true,
                 sortable: true,
                 columnWidth: 200,
-                height: 720,
+                height: 480,
                 dataSource: pivotDataSource,
             })
             .data("kendoPivotGrid");
@@ -70,7 +70,7 @@ $(document).ready(function () {
             dataSource: pivotgrid.dataSource,
             filterable: true,
             sortable: true,
-            height: 720,
+            height: 480,
         });
     };
 
