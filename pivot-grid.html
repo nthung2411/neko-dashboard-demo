@@ -11,6 +11,13 @@
     <script src="./js/jquery.min.js"></script>
     <script src="./js/jszip.min.js"></script>
     <script src="./js/kendo.all.min.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
+      integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
 
   <body>
@@ -34,73 +41,51 @@
     <script src="./global.js"></script>
     <script>
       $(document).ready(function () {
+        const prepareGridData = function (data) {
+          if (!Array.isArray(data)) {
+            return;
+          }
+          const scholars = data;
+          const gridData = [];
+          for (let i = 0; i < scholars.length; i++) {
+            const scholar = scholars[i];
+            const dailySLPs = scholar["_dailySLP"];
+            if (!Array.isArray(dailySLPs)) {
+              continue;
+            }
+            gridData.push(...dailySLPs);
+          }
+          gridData.forEach(function (item) {
+            item.scholarName = item["scholar"]["name"];
+            const date = moment(item.date).format("DD MMM yyyy");
+            item.date = date;
+          });
+          return gridData;
+        };
+
         const onGetScholarsSuccess = function (result) {
           if (!result.ok) {
             onGetScholarsFail(result);
             return;
           }
-
-          const pivotData = [
-              {
-                ProductName: "Chai",
-                UnitPrice: 42,
-                Category: "Beverages",
-                Date: "31/12/2021",
-              },
-              {
-                ProductName: "Coke",
-                UnitPrice: 20,
-                Category: "Beverages",
-                Date: "31/12/2021",
-              },
-              {
-                ProductName: "Coke",
-                UnitPrice: 40,
-                Category: "Beverages",
-                Date: "30/12/2021",
-              },
-              {
-                ProductName: "Coke",
-                UnitPrice: 80,
-                Category: "Beverages",
-                Date: "29/12/2021",
-              },
-              {
-                ProductName: "French Fries",
-                UnitPrice: 100,
-                Category: "Food",
-                Date: "31/12/2021",
-              },
-              {
-                ProductName: "French Fries",
-                UnitPrice: 150,
-                Category: "Food",
-                Date: "30/12/2021",
-              },
-              {
-                ProductName: "French Fries",
-                UnitPrice: 50,
-                Category: "Food",
-                Date: "29/12/2021",
-              },
-            ];
+          const pivotData = prepareGridData(result.data);
 
           const pivotDataSource = new kendo.data.PivotDataSource({
-            columns: ["ProductName"],
-            rows: ["Category", "Date"],
+            columns: ["customerId", "date"],
+            rows: ["scholarName"],
             measures: ["Sum"],
             data: pivotData,
             schema: {
               cube: {
                 dimensions: {
-                  ProductName: { caption: "All Products" },
-                  Category: { caption: "All Categories" },
-                  Date: { caption: "All days" },
+                  scholarName: { caption: "All Scholars" },
+                  customerId: { caption: "All Customer IDs" },
+                  date: { caption: "All days" },
                 },
                 measures: {
                   Sum: {
-                    field: "UnitPrice",
-                    format: "{0:c}",
+                    field: "amount",
+                    format: "{0:d}",
                     aggregate: function (value, state, context) {
                       return (state.accumulator || 0) + value;
                     },
@@ -120,7 +105,7 @@
               filterable: true,
               sortable: true,
               columnWidth: 200,
-              height: 580,
+              height: 720,
               dataSource: pivotDataSource,
             })
             .data("kendoPivotGrid");
@@ -129,7 +114,7 @@
             dataSource: pivotgrid.dataSource,
             filterable: true,
             sortable: true,
-            height: 580,
+            height: 720,
           });
         };
 
