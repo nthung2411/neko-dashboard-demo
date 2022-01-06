@@ -1,24 +1,9 @@
 $(document).ready(function () {
     const prepareGridData = function (data) {
         if (!Array.isArray(data)) {
-            return;
+            return [];
         }
-        const scholars = data;
-        const gridData = [];
-        for (let i = 0; i < scholars.length; i++) {
-            const scholar = scholars[i];
-            const dailySLPs = scholar["_dailySLP"];
-            if (!Array.isArray(dailySLPs)) {
-                continue;
-            }
-            gridData.push(...dailySLPs);
-        }
-        gridData.forEach(function (item) {
-            item.scholarName = item["scholar"]["name"];
-            const date = moment(item.date).format("DD MMM yyyy");
-            item.date = date;
-        });
-        return gridData;
+        return data;
     };
 
     const onGetScholarsSuccess = function (result) {
@@ -78,10 +63,10 @@ $(document).ready(function () {
         console.error(error);
     };
 
-    $.getJSON("./env.json", function (result) {
+    $.getJSON('./env.json', function (result) {
         let url = result.useMockData
             ? "./mock/scholars.json"
-            : "http://34.124.189.18:8001/v1/scholars";
+            : result.API_URL;
         $.ajax({
             url,
             success: onGetScholarsSuccess,

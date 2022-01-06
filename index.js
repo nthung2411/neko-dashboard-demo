@@ -9,13 +9,13 @@ $(function () {
                         scholarName: { type: "string" },
                         customerName: { type: "string" },
                         amount: { type: "number" },
-                        date: { type: "string" },
+                        day: { type: "string" },
                     },
                 },
             },
             pageSize: 10,
             sort: {
-                field: "date",
+                field: "day",
                 dir: "desc",
             },
             // group on init
@@ -68,7 +68,13 @@ $(function () {
                     aggregates: ["sum"], groupHeaderColumnTemplate: "Total SLP Amount: #=sum#"
                 },
                 {
-                    field: "date",
+                    field: "month",
+                    title: "Month",
+                    width: 200,
+                    // format: "{0:dd MMMM yyyy}",
+                },
+                {
+                    field: "day",
                     title: "Date",
                     width: 200,
                     // format: "{0:dd MMMM yyyy}",
@@ -92,33 +98,18 @@ $(function () {
 
     const prepareGridData = function (data) {
         if (!Array.isArray(data)) {
-            return;
-        }
-        const scholars = data;
-        const gridData = [];
-        for (let i = 0; i < scholars.length; i++) {
-            const scholar = scholars[i];
-            const dailySLPs = scholar["_dailySLP"];
-            if (!Array.isArray(dailySLPs)) {
-                continue;
-            }
-            gridData.push(...dailySLPs);
-        }
-        gridData.forEach(function (item) {
-            item.scholarName = item["scholar"]["name"];
-            const date = moment(item.date).format("DD MMM yyyy");
-            item.date = date;
-        });
-        return gridData;
+            return [];
+        }        
+        return data;
     };
 
     const onGetScholarsSuccess = function (result) {
+        console.log(result);
         if (!result.ok) {
             onGetScholarsFail(result);
             return;
         }
         const gridData = prepareGridData(result.data);
-        console.log(gridData);
         bindDataToGrid(gridData);
     };
 
@@ -128,9 +119,10 @@ $(function () {
         $errorMessage.show();
     };
     $.getJSON('./env.json', function (result) {
+        console.log(result)
         let url = result.useMockData
             ? "./mock/scholars.json"
-            : "http://34.124.189.18:8001/v1/scholars";
+            : result.API_URL;
         $.ajax({
             url,
             success: onGetScholarsSuccess,
