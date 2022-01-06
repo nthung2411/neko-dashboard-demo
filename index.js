@@ -5,11 +5,11 @@ $(function () {
             schema: {
                 model: {
                     fields: {
-                        scholarId: { type: "number" },
                         scholarName: { type: "string" },
                         customerName: { type: "string" },
                         amount: { type: "number" },
                         day: { type: "string" },
+                        month: { type: "string" },
                     },
                 },
             },
@@ -31,26 +31,20 @@ $(function () {
             //         { field: "amount", aggregate: "average" },
             //     ]
             // },
-            aggregate: [
-                { field: "scholarId", aggregate: "count" },
-                { field: "customerName", aggregate: "count" },
-                { field: "amount", aggregate: "average" },
-                { field: "amount", aggregate: "sum" },
-            ]
         });
-
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
             pageable: true,
             sortable: true,
-            filterable: true,
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Contains",
+                    }
+                }
+            },
             columns: [
-                {
-                    field: "scholarId",
-                    title: "Scholar ID",
-                    width: 160,
-                    aggregates: ["count"], groupHeaderColumnTemplate: "Scholars: #=count#"
-                },
                 {
                     field: "scholarName",
                     title: "Scholar Name",
@@ -59,38 +53,38 @@ $(function () {
                     field: "customerName",
                     title: "Customer Name",
                     width: 160,
-                    aggregates: ["count"], groupHeaderColumnTemplate: "Customers: #=count#",
                 },
                 {
                     field: "amount",
                     title: "Amount",
-                    width: 200,
-                    aggregates: ["sum"], groupHeaderColumnTemplate: "Total SLP Amount: #=sum#"
+                    width: 120,
+                    format: "{0:n0}",
+                    groupable: false,
+                    aggregates: ["sum"],
+                    groupHeaderColumnTemplate: function (e) {
+                        const format = kendo.toString(e.amount['sum'], "n0");
+                        return `Total SLP: ${format}`;
+                    }
                 },
                 {
                     field: "month",
                     title: "Month",
-                    width: 200,
-                    // format: "{0:dd MMMM yyyy}",
+                    width: 100
                 },
                 {
                     field: "day",
                     title: "Date",
-                    width: 200,
-                    // format: "{0:dd MMMM yyyy}",
+                    width: 120
                 },
             ],
             toolbar: ["search", "excel"],
             excel: {
-                fileName: "Kendo UI Grid Export.xlsx",
+                fileName: `${moment().format('DD.MM.yyyy')}.xlsx`,
             },
             search: {
                 fields: [
-                    { name: "scholarId", operator: "eq" },
-                    { name: "customerId", operator: "eq" },
-                    { name: "amount", operator: "gte" },
-                    { name: "scholarName", operator: "contains" },
-                ],
+                    "scholarName", "customerName", "day", "month"
+                ]
             },
             groupable: true,
         });
@@ -99,12 +93,19 @@ $(function () {
     const prepareGridData = function (data) {
         if (!Array.isArray(data)) {
             return [];
-        }        
+        }
+        data.forEach(item => {
+            if (!item['customerName'] || item['customerName'] === '') {
+                item['customerName'] = 'N/A';
+            }
+            if (!item['scholarName'] || item['scholarName'] === '') {
+                item['scholarName'] = 'N/A';
+            }
+        })
         return data;
     };
 
     const onGetScholarsSuccess = function (result) {
-        console.log(result);
         if (!result.ok) {
             onGetScholarsFail(result);
             return;
@@ -119,7 +120,6 @@ $(function () {
         $errorMessage.show();
     };
     $.getJSON('./env.json', function (result) {
-        console.log(result)
         let url = result.useMockData
             ? "./mock/scholars.json"
             : result.API_URL;
