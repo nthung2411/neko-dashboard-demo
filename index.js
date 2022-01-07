@@ -13,24 +13,10 @@ $(function () {
                     },
                 },
             },
-            // pageSize: 10,
             sort: {
                 field: "day",
                 dir: "desc",
-            },
-            // group on init
-            // group: {
-            //     field: "customerId", aggregates: [
-            //         { field: "scholarId", aggregate: "count" },
-            //         { field: "amount", aggregate: "sum" },
-            //         { field: "amount", aggregate: "average" },
-            //     ],
-            //     field: "scholarId", aggregates: [
-            //         { field: "customerId", aggregate: "count" },
-            //         { field: "amount", aggregate: "sum" },
-            //         { field: "amount", aggregate: "average" },
-            //     ]
-            // },
+            }
         });
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
@@ -87,6 +73,12 @@ $(function () {
                 ]
             },
             groupable: true,
+            dataBound: function (e) {
+                var grid = this;
+                $(".k-grouping-row").each(function (e) {
+                    grid.collapseGroup(this);
+                });
+            }
         });
     };
 

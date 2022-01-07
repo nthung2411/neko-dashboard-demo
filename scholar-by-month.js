@@ -15,7 +15,6 @@ $(function () {
                     },
                 },
             },
-            // pageSize: 10,
             sort: {
                 field: "day",
                 dir: "desc",
@@ -81,6 +80,12 @@ $(function () {
                 ]
             },
             groupable: true,
+            dataBound: function (e) {
+                var grid = this;
+                $(".k-grouping-row").each(function (e) {
+                    grid.collapseGroup(this);
+                });
+            }
         });
     };
 
