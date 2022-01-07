@@ -16,7 +16,8 @@ $(document).ready(function () {
         const pivotDataSource = new kendo.data.PivotDataSource({
             columns: [
                 'customerName',
-                'date'
+                'day',
+                'month'
             ],
             rows: ["scholarName"],
             measures: ["Sum"],
@@ -26,7 +27,8 @@ $(document).ready(function () {
                     dimensions: {
                         scholarName: { caption: "All Scholars" },
                         customerName: { caption: "All Customers" },
-                        date: { caption: "All days" },
+                        day: { caption: "All days" },
+                        month: { caption: "All months" },
                     },
                     measures: {
                         Sum: {
