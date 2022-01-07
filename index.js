@@ -56,14 +56,14 @@ $(function () {
                 },
                 {
                     field: "amount",
-                    title: "Amount",
-                    width: 120,
+                    title: "SLP",
+                    width: 200,
                     format: "{0:n0}",
                     groupable: false,
                     aggregates: ["sum"],
                     groupHeaderColumnTemplate: function (e) {
                         const format = kendo.toString(e.amount['sum'], "n0");
-                        return `Total SLP: ${format}`;
+                        return `Total: ${format}`;
                     }
                 },
                 {
