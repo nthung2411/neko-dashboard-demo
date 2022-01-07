@@ -15,7 +15,7 @@ $(function () {
                     },
                 },
             },
-            pageSize: 10,
+            // pageSize: 10,
             sort: {
                 field: "day",
                 dir: "desc",
