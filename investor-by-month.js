@@ -1,4 +1,6 @@
 $(function () {
+    let scholarsData; //global data
+
     const bindDataToGrid = function (gridData) {
         var gridDataSource = new kendo.data.DataSource({
             data: gridData,
@@ -98,20 +100,34 @@ $(function () {
         return data;
     };
 
+    const onSelectInput = function (input) {
+        const data = input['dataItem'];
+        const filterData = scholarsData.data.filter(scholar => {
+            return scholar.customerName === data
+        });
+        bindDataToGrid(filterData);
+    };
+
+    const onChangeInput = function (input) {
+        if (input.sender._old !== '') { return; }
+        bindDataToGrid(scholarsData.data);
+    }
+
     const bindDataForInput = function (data) {
         const investorNames = data.map(item => item.customerName);
         const unique = [...new Set(investorNames)];
-        
         //create AutoComplete UI component
         $("#investor-input").kendoAutoComplete({
             dataSource: unique,
             filter: "contains",
             placeholder: "Select your investor...",
-            separator: ", "
+            select: onSelectInput,
+            change: onChangeInput
         });
     }
 
-    const onGetScholarsSuccess = function (result) {
+    const onGetScholarsSuccess = function () {
+        const result = scholarsData;
         if (!result.ok) {
             onGetScholarsFail(result);
             return;
@@ -128,6 +144,7 @@ $(function () {
         console.error(error);
         $errorMessage.show();
     };
+
     const getScholars = function (investorId) {
         const getEnvJson = $.getJSON('./env.json');
         getEnvJson.done(function (result) {
@@ -139,14 +156,12 @@ $(function () {
             });
             getScholarsAjax
                 .done(function (result) {
-                    result['investorId'] = investorId;
-                    console.log(result);
-                    onGetScholarsSuccess(result);
+                    scholarsData = result;
+                    onGetScholarsSuccess();
                 })
                 .error(onGetScholarsFail);
         })
     }
-
 
     getScholars();
 });
