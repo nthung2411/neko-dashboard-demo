@@ -28,7 +28,7 @@ $(function () {
         });
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
-            pageable: true,
+            pageable: false,
             sortable: true,
             filterable: {
                 extra: false,
