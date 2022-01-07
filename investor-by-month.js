@@ -50,7 +50,7 @@ $(function () {
                 },
                 {
                     field: "amount",
-                    title: "Amount",
+                    title: "SLP",
                     width: 200,
                     format: "{0:n0}",
                     groupable: false,
