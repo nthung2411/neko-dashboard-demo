@@ -1,0 +1,10 @@
+.input-section{
+    margin-bottom: 24px;
+    padding: 16px;
+    border: solid #bdbdbd 1px;
+}
+.input-hint{
+    font-size: small;
+    font-style: italic;
+    padding-left: 122px;
+}

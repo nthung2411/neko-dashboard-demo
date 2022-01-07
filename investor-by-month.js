@@ -17,7 +17,7 @@ $(function () {
             sort: {
                 field: "day",
                 dir: "desc",
-            },            
+            },
             group: {
                 field: "customerName", aggregates: [
                     { field: "scholarName", aggregate: "count" },
@@ -98,13 +98,29 @@ $(function () {
         return data;
     };
 
+    const bindDataForInput = function (data) {
+        const investorNames = data.map(item => item.customerName);
+        const unique = [...new Set(investorNames)];
+        
+        //create AutoComplete UI component
+        $("#investor-input").kendoAutoComplete({
+            dataSource: unique,
+            filter: "contains",
+            placeholder: "Select your investor...",
+            separator: ", "
+        });
+    }
+
     const onGetScholarsSuccess = function (result) {
         if (!result.ok) {
             onGetScholarsFail(result);
             return;
         }
+
         const gridData = prepareGridData(result.data);
         bindDataToGrid(gridData);
+
+        bindDataForInput(result.data);
     };
 
     const $errorMessage = $("#error-message").hide();
@@ -112,14 +128,25 @@ $(function () {
         console.error(error);
         $errorMessage.show();
     };
-    $.getJSON('./env.json', function (result) {
-        let url = result.useMockData
-            ? "./mock/scholars.json"
-            : result.API_URL;
-        $.ajax({
-            url,
-            success: onGetScholarsSuccess,
-            error: onGetScholarsFail,
-        });
-    });
+    const getScholars = function (investorId) {
+        const getEnvJson = $.getJSON('./env.json');
+        getEnvJson.done(function (result) {
+            let url = result.useMockData
+                ? "./mock/scholars.json"
+                : result.API_URL;
+            const getScholarsAjax = $.ajax({
+                url
+            });
+            getScholarsAjax
+                .done(function (result) {
+                    result['investorId'] = investorId;
+                    console.log(result);
+                    onGetScholarsSuccess(result);
+                })
+                .error(onGetScholarsFail);
+        })
+    }
+
+
+    getScholars();
 });
