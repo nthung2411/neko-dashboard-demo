@@ -21,7 +21,7 @@ $(function () {
                 dir: "desc",
             },
             group: {
-                field: "customerName", aggregates: [
+                field: "scholarName", aggregates: [
                     { field: "amount", aggregate: "sum" },
                 ],
             },
@@ -102,7 +102,7 @@ $(function () {
     const onSelectInput = function (input) {
         const data = input['dataItem'];
         const filterData = scholarsData.data.filter(scholar => {
-            return scholar.customerName === data
+            return scholar.scholarName === data
         });
         bindDataToGrid(filterData);
     };
@@ -113,13 +113,13 @@ $(function () {
     }
 
     const bindDataForInput = function (data) {
-        const raw = data.map(item => item.customerName);
+        const raw = data.map(item => item.scholarName);
         const unique = [...new Set(raw)];
         //create AutoComplete UI component
-        $("#investor-input").kendoAutoComplete({
+        $("#scholar-input").kendoAutoComplete({
             dataSource: unique,
             filter: "contains",
-            placeholder: "Select your investor...",
+            placeholder: "Select your scholar...",
             select: onSelectInput,
             change: onChangeInput
         });

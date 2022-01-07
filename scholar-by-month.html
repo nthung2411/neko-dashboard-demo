@@ -8,6 +8,7 @@
     <link href="./styles/kendo.default.mobile.min.css" rel="stylesheet" />
     <link href="./styles/kendo.default.min.css" rel="stylesheet" />
     <link href="./index.css" rel="stylesheet" />
+    <link href="./auto-complete-input.css" rel="stylesheet" />
     <script src="./js/jquery.min.js"></script>
     <script src="./js/jszip.min.js"></script>
     <script src="./js/kendo.all.min.js"></script>
@@ -31,6 +32,13 @@
     </ul>
     <div class="content">
       <h1>Scholars By Month</h1>
+      <div class="input-section k-content">
+        <label for="scholar-input">Choose scholar:</label>
+        <input id="scholar-input" style="width: 80%"/>
+        <div class="input-hint">
+          Start typing the name of the scholar
+        </div>
+      </div>
       <div id="ordersGrid"></div>
       <span id="error-message">
         Sorry for the inconvenient. Please contact the admin for further
@@ -41,6 +49,6 @@
       <span id="loader"></span>
     </div>
     <script src="./global.js"></script>
-    <!-- <script src="./index.js"></script> -->
+    <script src="./scholar-by-month.js"></script>
   </body>
 </html>
