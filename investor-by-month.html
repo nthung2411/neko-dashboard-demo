@@ -7,11 +7,10 @@
     <link href="./styles/kendo.common.min.css" rel="stylesheet" />
     <link href="./styles/kendo.default.mobile.min.css" rel="stylesheet" />
     <link href="./styles/kendo.default.min.css" rel="stylesheet" />
-    <link href="./pivot-grid.css" rel="stylesheet" />
+    <link href="./index.css" rel="stylesheet" />
     <script src="./js/jquery.min.js"></script>
     <script src="./js/jszip.min.js"></script>
     <script src="./js/kendo.all.min.js"></script>
-
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
       integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ=="
@@ -19,30 +18,29 @@
       referrerpolicy="no-referrer"
     ></script>
   </head>
-
   <body>
     <ul id="menu">
       <li><a href="/">Scholars</a></li>
       <li><a href="./scholar-by-month.html">Scholars By Month</a></li>
       <li><a href="./scholar-by-year.html">Scholars By Year</a></li>
-      <li><a href="./investor-by-month.html">Investors By Month</a></li>
+      <li class="k-state-active">
+        <a href="./investor-by-month.html">Investors By Month</a>
+      </li>
       <li><a href="./investor-by-year.html">Investors By Year</a></li>
-      <li class="k-state-active"><a href="./pivot-grid.html">Pivot Grid</a></li>
+      <li><a href="./pivot-grid.html">Pivot Grid</a></li>
     </ul>
-
-    <h1>Pivot Grid</h1>
-
     <div class="content">
-      <div id="configurator" class="hidden-on-narrow"></div>
-      <div id="pivotgrid" class="hidden-on-narrow"></div>
-
-      <div class="responsive-message"></div>
+      <h1>Investors By Month</h1>
+      <div id="ordersGrid"></div>
+      <span id="error-message">
+        Sorry for the inconvenient. Please contact the admin for further
+        instruction.
+      </span>
     </div>
-
     <div class="loader">
       <span id="loader"></span>
     </div>
     <script src="./global.js"></script>
-    <script src="./pivot-grid.js"></script>
+    <!-- <script src="./investor-by-month.js"></script> -->
   </body>
 </html>
