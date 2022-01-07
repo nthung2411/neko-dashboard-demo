@@ -31,9 +31,9 @@ $(document).ready(function () {
                     measures: {
                         Sum: {
                             field: "amount",
-                            format: "{0:d}",
-                            aggregate: function (value, state, context) {
-                                return (state.accumulator || 0) + value;
+                            format: "{0:n0}",
+                            aggregate: function (value, state, context) {                                
+                                return (state.accumulator || 0) + +value;
                             },
                         },
                     },
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 filterable: true,
                 sortable: true,
                 columnWidth: 200,
-                height: 480,
+                height: 600,
                 dataSource: pivotDataSource,
             })
             .data("kendoPivotGrid");
@@ -55,7 +55,7 @@ $(document).ready(function () {
             dataSource: pivotgrid.dataSource,
             filterable: true,
             sortable: true,
-            height: 480,
+            height: 600,
         });
     };
 
