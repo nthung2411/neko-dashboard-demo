@@ -149,7 +149,7 @@ $(function () {
         $errorMessage.show();
     };
 
-    const getScholars = function (investorId) {
+    const getScholars = function () {
         const getEnvJson = $.getJSON('./env.json');
         getEnvJson.done(function (result) {
             let url = result.useMockData
