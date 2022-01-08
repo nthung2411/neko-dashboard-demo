@@ -18,12 +18,21 @@ $(function () {
             sort: {
                 field: "day",
                 dir: "desc",
-            },
-            group: {
-                field: "month", aggregates: [
-                    { field: "amount", aggregate: "sum" },
-                ],
-            },
+            },            
+            group: [
+                {
+                    field: "scholarName",
+                    aggregates: [
+                        { field: "amount", aggregate: "sum" },
+                    ],
+                },
+                {
+                    field: "month",
+                    aggregates: [
+                        { field: "amount", aggregate: "sum" },
+                    ],
+                },
+            ]
         });
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,

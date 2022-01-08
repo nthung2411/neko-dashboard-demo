@@ -19,11 +19,20 @@ $(function () {
                 field: "day",
                 dir: "desc",
             },
-            group: {
-                field: "scholarName", aggregates: [
-                    { field: "amount", aggregate: "sum" },
-                ],
-            },
+            group: [
+                {
+                    field: "scholarName",
+                    aggregates: [
+                        { field: "amount", aggregate: "sum" },
+                    ],
+                },
+                {
+                    field: "day",
+                    aggregates: [
+                        { field: "amount", aggregate: "sum" },
+                    ],
+                },
+            ]
         });
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
