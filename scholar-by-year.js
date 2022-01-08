@@ -1,5 +1,8 @@
 $(function () {
-    let scholarsData; //global data
+    let scholarsData;
+    let scholarId;
+    const $errorMessage = $("#error-message").hide();
+    const $emptyMessage = $("#empty-message").hide();
 
     const bindDataToGrid = function (gridData) {
         var gridDataSource = new kendo.data.DataSource({
@@ -146,13 +149,18 @@ $(function () {
             return;
         }
 
-        const gridData = prepareGridData(result.data);
-        bindDataToGrid(gridData);
+        let gridData = [...prepareGridData(result.data)];
+        if (!Number.isNaN(scholarId) && scholarId > 0) {
+            gridData = gridData.filter(item => item['scholarId'] === scholarId);
+        }
+        if (gridData.length === 0) {
+            $emptyMessage.show();
+        }
 
-        bindDataForInput(result.data);
+        bindDataToGrid(gridData);
+        bindDataForInput(gridData);
     };
 
-    const $errorMessage = $("#error-message").hide();
     const onGetScholarsFail = function (error) {
         console.error(error);
         $errorMessage.show();
@@ -176,5 +184,12 @@ $(function () {
         })
     }
 
+    const readQueryStringParams = function () {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        scholarId = params['id'];
+    }
+
+    readQueryStringParams();
     getScholars();
 });
