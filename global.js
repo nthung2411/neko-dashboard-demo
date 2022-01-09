@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#loader").kendoLoader({
-        themeColor: "success",
+        // themeColor: "success",
         type: "infinite-spinner",
     });
     const $loading = $(".loader").hide(); // Hide it initially
