@@ -1,4 +1,5 @@
 $(function () {
+    const $errorMessage = $("#error-message").hide();
     const bindDataToGrid = function (gridData) {
         var gridDataSource = new kendo.data.DataSource({
             data: gridData,
@@ -21,6 +22,10 @@ $(function () {
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
             pageable: false,
+            height: 600,
+            scrollable: {
+                virtual: true
+            },
             sortable: true,
             filterable: {
                 extra: false,
@@ -74,11 +79,15 @@ $(function () {
             },
             groupable: true,
             dataBound: function (e) {
-                var grid = this;
+                const grid = this;
                 $(".k-grouping-row").each(function (e) {
                     grid.collapseGroup(this);
                 });
-            }
+                kendo.ui.progress($('#ordersGrid'), true);
+                setTimeout(() => {
+                    kendo.ui.progress($('#ordersGrid'), false);
+                }, 800);
+            },
         });
     };
 
@@ -106,7 +115,6 @@ $(function () {
         bindDataToGrid(gridData);
     };
 
-    const $errorMessage = $("#error-message").hide();
     const onGetScholarsFail = function (error) {
         console.error(error);
         $errorMessage.show();

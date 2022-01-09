@@ -41,6 +41,10 @@ $(function () {
             dataSource: gridDataSource,
             pageable: false,
             sortable: true,
+            height: 600,
+            scrollable: {
+                virtual: true
+            },
             filterable: {
                 extra: false,
                 operators: {
@@ -93,11 +97,15 @@ $(function () {
             },
             groupable: true,
             dataBound: function (e) {
-                var grid = this;
+                const grid = this;
                 $(".k-grouping-row").each(function (e) {
                     grid.collapseGroup(this);
                 });
-            }
+                kendo.ui.progress($('#ordersGrid'), true);
+                setTimeout(() => {
+                    kendo.ui.progress($('#ordersGrid'), false);
+                }, 800);
+            },
         });
     };
 
