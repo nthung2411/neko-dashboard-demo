@@ -1,9 +1,8 @@
 $(document).ready(function () {
     $("#loader").kendoLoader({
-        // themeColor: "success",
         type: "infinite-spinner",
     });
-    const $loading = $(".loader").hide(); // Hide it initially
+    const $loading = $("#overlay").hide();
     $(document)
         .ajaxStart(function () {
             $loading.show();
