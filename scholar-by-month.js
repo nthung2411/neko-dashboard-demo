@@ -34,6 +34,7 @@ $(function () {
                     aggregates: [
                         { field: "amount", aggregate: "sum" },
                     ],
+                    dir: 'desc'
                 },
             ]
         });
@@ -82,7 +83,12 @@ $(function () {
                 {
                     field: "day",
                     title: "Date",
-                    width: 120
+                    width: 120,
+                    groupable: {
+                        sort: {
+                            dir: "desc"
+                        }
+                    },
                 },
             ],
             toolbar: ["search", "excel"],
@@ -95,10 +101,15 @@ $(function () {
                 ]
             },
             groupable: true,
-            dataBound: function (e) {
+            dataBound: function () {
                 const grid = this;
-                $(".k-grouping-row").each(function (e) {
-                    grid.collapseGroup(this);
+                const groupRows = $(".k-grouping-row");
+                groupRows.each(function () {
+                    const element = this;
+                    const nextSibling = element.nextSibling;
+                    if (nextSibling && nextSibling.classList.contains('k-master-row')) {
+                        grid.collapseGroup(this);
+                    }
                 });
                 kendo.ui.progress($('#ordersGrid'), true);
                 setTimeout(() => {
@@ -154,7 +165,7 @@ $(function () {
         if (!result.ok) {
             onGetScholarsFail(result);
             return;
-        }        
+        }
 
         let gridData = [...prepareGridData(result.data)];
         if (!Number.isNaN(scholarId) && scholarId > 0) {
@@ -163,7 +174,7 @@ $(function () {
         if (gridData.length === 0) {
             $emptyMessage.show();
         }
-        
+
         bindDataToGrid(gridData);
         bindDataForInput(gridData);
     };
