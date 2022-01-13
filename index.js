@@ -22,7 +22,6 @@ $(function () {
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
             pageable: false,
-            height: 600,
             scrollable: {
                 virtual: true
             },
