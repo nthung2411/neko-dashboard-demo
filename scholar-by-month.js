@@ -172,8 +172,9 @@ $(function () {
             onGetScholarsFail(result);
             return;
         }
-
-        let gridData = [...prepareGridData(result.data)];
+        
+        const preparedData = [...prepareGridData(result.data)];
+        let gridData = preparedData;
         if (!Number.isNaN(scholarId) && scholarId > 0) {
             gridData = gridData.filter(item => item['scholarId'] === scholarId);
         }
@@ -182,7 +183,7 @@ $(function () {
         }
 
         bindDataToGrid(gridData);
-        bindDataForInput(gridData);
+        bindDataForInput(preparedData);
     };
 
     const onGetScholarsFail = function (error) {

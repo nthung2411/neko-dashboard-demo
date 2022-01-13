@@ -21,7 +21,7 @@ $(function () {
             sort: {
                 field: "day",
                 dir: "desc",
-            },            
+            },
             group: [
                 {
                     field: "scholarName",
@@ -75,7 +75,7 @@ $(function () {
                     groupable: false,
                     aggregates: ["sum", "average", "count"],
                     groupHeaderColumnTemplate: function (e) {
-                        const sum = kendo.toString(e.amount['sum'], "n0");                        
+                        const sum = kendo.toString(e.amount['sum'], "n0");
                         const count = kendo.toString(e.amount['count'], "n0");
                         const avg = kendo.toString(e.amount['average'], "n0");
                         return `Total: ${sum}, Count: ${count}, AVG: ${avg}`;
@@ -173,7 +173,8 @@ $(function () {
             return;
         }
 
-        let gridData = [...prepareGridData(result.data)];
+        const preparedData = [...prepareGridData(result.data)];
+        let gridData = preparedData;
         if (!Number.isNaN(scholarId) && scholarId > 0) {
             gridData = gridData.filter(item => item['scholarId'] === scholarId);
         }
@@ -182,7 +183,7 @@ $(function () {
         }
 
         bindDataToGrid(gridData);
-        bindDataForInput(gridData);
+        bindDataForInput(preparedData);
     };
 
     const onGetScholarsFail = function (error) {
