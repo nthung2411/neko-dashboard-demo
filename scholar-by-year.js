@@ -144,7 +144,7 @@ $(function () {
         $("#scholar-input").kendoAutoComplete({
             dataSource: unique,
             filter: "contains",
-            placeholder: "Select your scholar...",
+            placeholder: "Start typing the name...",
             select: onSelectInput,
             change: onChangeInput
         });

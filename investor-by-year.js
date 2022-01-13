@@ -144,7 +144,7 @@ $(function () {
         $("#investor-input").kendoAutoComplete({
             dataSource: unique,
             filter: "contains",
-            placeholder: "Select your investor...",
+            placeholder: "Start typing the name...",
             select: onSelectInput,
             change: onChangeInput
         });
