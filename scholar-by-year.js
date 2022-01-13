@@ -27,12 +27,16 @@ $(function () {
                     field: "scholarName",
                     aggregates: [
                         { field: "amount", aggregate: "sum" },
+                        { field: "amount", aggregate: "count" },
+                        { field: "amount", aggregate: "average" },
                     ],
                 },
                 {
                     field: "month",
                     aggregates: [
                         { field: "amount", aggregate: "sum" },
+                        { field: "amount", aggregate: "count" },
+                        { field: "amount", aggregate: "average" },
                     ],
                     dir: 'desc'
                 },
@@ -56,23 +60,25 @@ $(function () {
             columns: [
                 {
                     field: "scholarName",
-                    title: "Scholar Name",
+                    title: "Scholar",
                 },
                 {
                     field: "customerName",
-                    title: "Customer Name",
+                    title: "Investor",
                     width: 160,
                 },
                 {
                     field: "amount",
                     title: "SLP",
-                    width: 200,
+                    width: 400,
                     format: "{0:n0}",
                     groupable: false,
-                    aggregates: ["sum"],
+                    aggregates: ["sum", "average", "count"],
                     groupHeaderColumnTemplate: function (e) {
-                        const format = kendo.toString(e.amount['sum'], "n0");
-                        return `Total: ${format}`;
+                        const sum = kendo.toString(e.amount['sum'], "n0");                        
+                        const count = kendo.toString(e.amount['count'], "n0");
+                        const avg = kendo.toString(e.amount['average'], "n0");
+                        return `Total: ${sum}, Count: ${count}, AVG: ${avg}`;
                     }
                 },
                 {
