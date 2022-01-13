@@ -40,8 +40,7 @@ $(function () {
         $("#ordersGrid").kendoGrid({
             dataSource: gridDataSource,
             pageable: false,
-            sortable: true,
-            height: 600,
+            sortable: true,            
             scrollable: {
                 virtual: true
             },

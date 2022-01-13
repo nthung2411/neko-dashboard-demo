@@ -14,12 +14,14 @@ $(document).ready(function () {
         const pivotData = prepareGridData(result.data);
 
         const pivotDataSource = new kendo.data.PivotDataSource({
-            columns: [
-                'customerName',
-                'day',
-                'month'
+            columns: [                
+                { name: 'month', expand: false },
+                { name: 'day', expand: true }
             ],
-            rows: ["scholarName"],
+            rows: [
+                { name: 'scholarName', expand: true },
+                { name: 'customerName', expand: false },
+            ],
             measures: ["Sum"],
             data: pivotData,
             schema: {
@@ -34,7 +36,7 @@ $(document).ready(function () {
                         Sum: {
                             field: "amount",
                             format: "{0:n0}",
-                            aggregate: function (value, state, context) {                                
+                            aggregate: function (value, state, context) {
                                 return (state.accumulator || 0) + +value;
                             },
                         },
@@ -43,6 +45,13 @@ $(document).ready(function () {
             },
         });
 
+        var paths = [
+            //Expand CY 2005 - first dimension
+            // ["[Date].[Calendar].[Calendar Year].&[2005]"],
+            //Expand All Products under CY 2015 - second dimension
+            // ["[Date].[Calendar].[Calendar Year].&[2005]", "[Product].[Category].[All Products]"]
+            ['customerName']
+        ];
         const pivotgrid = $("#pivotgrid")
             .kendoPivotGrid({
                 filterable: true,
@@ -50,6 +59,13 @@ $(document).ready(function () {
                 columnWidth: 200,
                 height: 600,
                 dataSource: pivotDataSource,
+                // dataBound: function () {
+                //     const path = paths.shift();
+                //     console.log(path, paths);
+                //     if (path !== undefined) {
+                //         this.dataSource.expandColumn(path);
+                //     }
+                // }
             })
             .data("kendoPivotGrid");
 

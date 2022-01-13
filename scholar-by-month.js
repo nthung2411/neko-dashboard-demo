@@ -41,7 +41,6 @@ $(function () {
             dataSource: gridDataSource,
             pageable: false,
             sortable: true,
-            height: 600,
             scrollable: {
                 virtual: true
             },
