@@ -3,6 +3,19 @@ $(document).ready(function () {
         if (!Array.isArray(data)) {
             return [];
         }
+        data.forEach(function (item) { 
+            item['Month'] = item.month;
+            item['Day'] = item.day;
+            item['Date'] = item.date;
+            item['Scholar'] = item.scholarName;
+            item['Investor'] = item.CustomerName;
+
+            delete item.month;
+            delete item.day;
+            delete item.date;
+            delete item.scholarName;
+            delete item.customerName;
+        })
         return data;
     };
 
@@ -14,23 +27,23 @@ $(document).ready(function () {
         const pivotData = prepareGridData(result.data);
 
         const pivotDataSource = new kendo.data.PivotDataSource({
-            columns: [                
-                { name: 'month', expand: false },
-                { name: 'day', expand: true }
+            columns: [
+                { name: 'Month', expand: false },
+                { name: 'Day', expand: true }
             ],
             rows: [
-                { name: 'scholarName', expand: true },
-                { name: 'customerName', expand: false },
+                { name: 'Scholar', expand: true },
+                { name: 'Investor', expand: false },
             ],
             measures: ["Sum"],
             data: pivotData,
             schema: {
                 cube: {
                     dimensions: {
-                        scholarName: { caption: "All Scholars" },
-                        customerName: { caption: "All Customers" },
-                        day: { caption: "All days" },
-                        month: { caption: "All months" },
+                        Scholar: { caption: "All Scholars" },
+                        Investor: { caption: "All Customers" },
+                        Day: { caption: "All days" },
+                        Month: { caption: "All months" },
                     },
                     measures: {
                         Sum: {
@@ -44,37 +57,17 @@ $(document).ready(function () {
                 },
             },
         });
-
-        var paths = [
-            //Expand CY 2005 - first dimension
-            // ["[Date].[Calendar].[Calendar Year].&[2005]"],
-            //Expand All Products under CY 2015 - second dimension
-            // ["[Date].[Calendar].[Calendar Year].&[2005]", "[Product].[Category].[All Products]"]
-            ['customerName']
-        ];
-        const pivotgrid = $("#pivotgrid")
+        $("#configurator").kendoPivotConfigurator();
+        $("#pivotgrid")
             .kendoPivotGrid({
+                configurator: '#configurator',
                 filterable: true,
                 sortable: true,
                 columnWidth: 200,
                 height: 600,
-                dataSource: pivotDataSource,
-                // dataBound: function () {
-                //     const path = paths.shift();
-                //     console.log(path, paths);
-                //     if (path !== undefined) {
-                //         this.dataSource.expandColumn(path);
-                //     }
-                // }
+                dataSource: pivotDataSource                
             })
-            .data("kendoPivotGrid");
-
-        $("#configurator").kendoPivotConfigurator({
-            dataSource: pivotgrid.dataSource,
-            filterable: true,
-            sortable: true,
-            height: 600,
-        });
+            .data("kendoPivotGrid");        
     };
 
     const onGetScholarsFail = function (data) {
