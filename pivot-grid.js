@@ -8,7 +8,7 @@ $(document).ready(function () {
             item['Day'] = item.day;
             item['Date'] = item.date;
             item['Scholar'] = item.scholarName;
-            item['Investor'] = item.CustomerName;
+            item['Investor'] = item.customerName;
 
             delete item.month;
             delete item.day;
@@ -32,8 +32,7 @@ $(document).ready(function () {
                 { name: 'Day', expand: true }
             ],
             rows: [
-                { name: 'Scholar', expand: true },
-                { name: 'Investor', expand: false },
+                { name: 'Investor', expand: true },
             ],
             measures: ["Sum"],
             data: pivotData,
@@ -41,7 +40,7 @@ $(document).ready(function () {
                 cube: {
                     dimensions: {
                         Scholar: { caption: "All Scholars" },
-                        Investor: { caption: "All Customers" },
+                        Investor: { caption: "All Investors" },
                         Day: { caption: "All days" },
                         Month: { caption: "All months" },
                     },
