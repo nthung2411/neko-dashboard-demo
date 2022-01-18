@@ -55,7 +55,7 @@ $(function () {
 
         const preparedData = [...prepareGridData(result.data)];
         let gridData = preparedData;
-        if (!Number.isNaN(customerId) && customerId > 0) {
+        if (customerId !== undefined && Number(customerId) > 0) {
             gridData = gridData.filter(item => item['customerId'] === customerId);
         }
         if (gridData.length === 0) {
