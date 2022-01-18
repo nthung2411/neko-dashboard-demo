@@ -2,7 +2,7 @@ $(function () {
     let scholarsData; //global data
     let customerId;
     const $errorMessage = $("#error-message").hide();
-    const $emptyMessage = $("#empty-message").hide();    
+    const $emptyMessage = $("#empty-message").hide();
 
     const onSelectInput = function (input) {
         const data = input['dataItem'];
@@ -10,12 +10,13 @@ $(function () {
             return Number(scholar.customerId) === Number(data.id)
         });
         const grid = $('#grid').data('kendoGrid');
-        grid.setDataSource(renderDataSource(filterData));
+        grid.setDataSource(renderDataSourceForInvestor(filterData));
     };
 
     const onChangeInput = function (input) {
         if (input.sender._old !== '') { return; }
-        bindDataToGrid(scholarsData.data);
+        const grid = $('#grid').data('kendoGrid');
+        grid.setDataSource(renderDataSourceForInvestor(scholarsData.data));
     }
 
     const bindDataForInput = function (data) {
@@ -61,7 +62,7 @@ $(function () {
             $emptyMessage.show();
         }
 
-        bindDataToGrid(gridData);
+        bindDataToGrid(renderDataSourceForInvestor(gridData));
         bindDataForInput(preparedData);
     };
 
