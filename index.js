@@ -19,7 +19,7 @@ $(function () {
                 dir: "desc",
             }
         });
-        $("#ordersGrid").kendoGrid({
+        $("#grid").kendoGrid({
             dataSource: gridDataSource,
             pageable: false,
             scrollable: true,
@@ -92,9 +92,9 @@ $(function () {
                         grid.collapseGroup(this);
                     }
                 });
-                kendo.ui.progress($('#ordersGrid'), true);
+                kendo.ui.progress($('#grid'), true);
                 setTimeout(() => {
-                    kendo.ui.progress($('#ordersGrid'), false);
+                    kendo.ui.progress($('#grid'), false);
                 }, 800);
             },
         });
