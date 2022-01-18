@@ -2,150 +2,15 @@ $(function () {
     let scholarsData; //global data
     let customerId;
     const $errorMessage = $("#error-message").hide();
-    const $emptyMessage = $("#empty-message").hide();
-
-    const bindDataToGrid = function (gridData) {
-        var gridDataSource = new kendo.data.DataSource({
-            data: gridData,
-            schema: {
-                model: {
-                    fields: {
-                        scholarName: { type: "string" },
-                        customerName: { type: "string" },
-                        amount: { type: "number" },
-                        day: { type: "string" },
-                        month: { type: "string" },
-                    },
-                },
-            },
-            sort: {
-                field: "day",
-                dir: "desc",
-            },
-            group: [
-                {
-                    field: "customerName",
-                    aggregates: [
-                        { field: "amount", aggregate: "sum" },
-                        { field: "amount", aggregate: "count" },
-                        { field: "amount", aggregate: "average" },
-                    ],
-                },
-                {
-                    field: "month",
-                    aggregates: [
-                        { field: "amount", aggregate: "sum" },
-                        { field: "amount", aggregate: "count" },
-                        { field: "amount", aggregate: "average" },
-                    ],
-                    dir: 'desc'
-                },
-            ]
-        });
-        $("#grid").kendoGrid({
-            dataSource: gridDataSource,
-            pageable: false,
-            sortable: true,
-            scrollable: {
-                virtual: true
-            },
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        contains: "Contains",
-                    }
-                }
-            },
-            columns: [
-                {
-                    field: "scholarName",
-                    title: "Scholar",
-                },
-                {
-                    field: "customerName",
-                    title: "Investor",
-                    width: 160,
-                },
-                {
-                    field: "amount",
-                    title: "SLP",
-                    width: 400,
-                    format: "{0:n0}",
-                    groupable: false,
-                    aggregates: ["sum", "average", "count"],
-                    groupHeaderColumnTemplate: function (e) {
-                        const sum = kendo.toString(e.amount['sum'], "n0");
-                        const count = kendo.toString(e.amount['count'], "n0");
-                        const avg = kendo.toString(e.amount['average'], "n0");
-                        return `Total: ${sum}, Count: ${count}, AVG: ${avg}`;
-                    }
-                },
-                {
-                    field: "month",
-                    title: "Month",
-                    width: 100
-                },
-                {
-                    field: "day",
-                    title: "Date",
-                    width: 120,
-                    groupable: {
-                        sort: {
-                            dir: "desc"
-                        }
-                    },
-                },
-            ],
-            toolbar: ["search", "excel"],
-            excel: {
-                fileName: `${moment().format('DD.MM.yyyy')}.xlsx`,
-            },
-            search: {
-                fields: [
-                    "scholarName", "customerName", "day", "month"
-                ]
-            },
-            groupable: true,
-            dataBound: function () {
-                const grid = this;
-                const groupRows = $(".k-grouping-row");
-                groupRows.each(function () {
-                    const element = this;
-                    const nextSibling = element.nextSibling;
-                    if (nextSibling && nextSibling.classList.contains('k-master-row')) {
-                        grid.collapseGroup(this);
-                    }
-                });
-                kendo.ui.progress($('#grid'), true);
-                setTimeout(() => {
-                    kendo.ui.progress($('#grid'), false);
-                }, 800);
-            },
-        });
-    };
-
-    const prepareGridData = function (data) {
-        if (!Array.isArray(data)) {
-            return [];
-        }
-        data.forEach(item => {
-            if (!item['customerName'] || item['customerName'] === '') {
-                item['customerName'] = 'N/A';
-            }
-            if (!item['scholarName'] || item['scholarName'] === '') {
-                item['scholarName'] = 'N/A';
-            }
-        })
-        return data;
-    };
+    const $emptyMessage = $("#empty-message").hide();    
 
     const onSelectInput = function (input) {
         const data = input['dataItem'];
         const filterData = scholarsData.data.filter(scholar => {
-            return scholar.customerName === data
+            return Number(scholar.customerId) === Number(data.id)
         });
-        bindDataToGrid(filterData);
+        const grid = $('#grid').data('kendoGrid');
+        grid.setDataSource(renderDataSource(filterData));
     };
 
     const onChangeInput = function (input) {
@@ -154,13 +19,27 @@ $(function () {
     }
 
     const bindDataForInput = function (data) {
-        const raw = data.map(item => item.customerName);
-        const unique = [...new Set(raw)];
-        //create AutoComplete UI component
-        $("#investor-input").kendoAutoComplete({
-            dataSource: unique,
+        const investors = [];
+        const ids = data.map(item => item['customerId']);
+        const uniqueIds = [...new Set(ids)];
+
+        uniqueIds.forEach((id) => {
+            const index = ids.indexOf(id);
+            const existed = investors.filter(item => item['customerId']).length > 0;
+            if (index > -1 && !existed) {
+                investors.push({
+                    name: `${data[index]['customerName']} - ${id}`,
+                    id: id
+                })
+            }
+        });
+        $("#investor-input").kendoComboBox({
+            placeholder: "Select investor...",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: investors,
             filter: "contains",
-            placeholder: "Start typing the name...",
+            suggest: true,
             select: onSelectInput,
             change: onChangeInput
         });
